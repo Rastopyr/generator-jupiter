@@ -1,4 +1,4 @@
-# generator-jupiter-migration [![Build Status](https://secure.travis-ci.org/Rastopyr/generator-jupiter-migration.png?branch=master)](https://travis-ci.org/Rastopyr/generator-jupiter-migration)
+# generator-jupiter [![Build Status](https://secure.travis-ci.org/Rastopyr/generator-jupiter.png?branch=master)](https://travis-ci.org/Rastopyr/generator-jupiter)
 
 > [Yeoman](http://yeoman.io) generator
 
@@ -23,16 +23,16 @@ npm install -g yo
 
 Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
 
-To install generator-jupiter-migration from npm, run:
+To install generator-jupiter from npm, run:
 
 ```bash
-npm install -g generator-jupiter-migration
+npm install -g generator-jupiter
 ```
 
 Finally, initiate the generator:
 
 ```bash
-yo jupiter-migration
+yo jupiter
 ```
 
 ### Getting To Know Yeoman
