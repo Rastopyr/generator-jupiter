@@ -10,27 +10,26 @@ var _ = require('yeoman-generator/node_modules/lodash');
 var RunContext = require('yeoman-generator/lib/test/run-context');
 var async = require('async');
 
-function getSchemaTypes() {
-  var schemas = fs.readdirSync(join(__dirname, 'schemas'));
+function getFixtureTypes() {
+  var schemas = fs.readdirSync(join(__dirname, 'fixtures'));
 
   return _.map(schemas, function (schema) {
     return _.capitalize(path.basename(schema, path.extname(schema)));
   });
 }
 
-function processResponse(results) {
+function process(results) {
   var filePath;
 
   this.type = this.type || results.type.toLowerCase();
-  this.format = results.format;
 
-  filePath = join(__dirname, 'schemas', this.type);
+  filePath = join(__dirname, 'fixtures', this.type);
 
   this.adapter = require(filePath);
 
   this.prompt(
     this.adapter.prompts,
-    this.adapter.processResponse.bind(this)
+    this.adapter.process.bind(this)(this.async())
   );
 }
 
@@ -39,24 +38,22 @@ module.exports = yeoman.generators.Base.extend({
     this.pkg = require('../../package.json');
   },
   prompting: function () {
-    var schemas, prompts;
+    var fixtures;
 
     this.async();
 
     this.log(yosay(
-      'Welcome to the ' + chalk.green('JupiterSchema') + ' generator!'
+      'Welcome to the ' + chalk.green('JupiterFixture') + ' generator!'
     ));
 
-    schemas = getSchemaTypes();
+    fixtures = getFixtureTypes();
 
-    prompts = [{
+    this.prompt([{
       name: 'type',
       type: 'list',
-      message: 'Select your schema type',
-      choices: schemas
-    }];
-
-    this.prompt(prompts, processResponse.bind(this));
+      message: 'Select your fixture type',
+      choices: fixtures
+    }], process.bind(this));
   },
   writing: function () {
     this.fs.copyTpl(this.tplPath, this.destPath, this.tplOptions);

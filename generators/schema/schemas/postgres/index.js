@@ -3,9 +3,6 @@ var util = require('util');
 var path = require('path');
 var join = path.join;
 
-var yeoman = require('yeoman-generator');
-var chalk = require('chalk');
-var yosay = require('yosay');
 var _ = require('yeoman-generator/node_modules/lodash');
 
 var async = require('async');
@@ -24,7 +21,21 @@ var processFieldResponse = function (field) {
 
 var processAssocResponse = function (assoc) {
   assocs.push(assoc);
-  console.log(assocs.length);
+};
+
+/*
+  Checking the need to add a field
+ */
+
+var checkToAddFields = function(callback) {
+  this.prompt([{
+      name: 'addnew',
+      type: 'confirm',
+      message: 'Add new field to Schema?',
+      default: true
+  }], function (result) {
+    callback(result.addnew);
+  });
 };
 
 var processFields = function (callback) {
@@ -47,6 +58,18 @@ var processFields = function (callback) {
   });
 };
 
+var wrapFields = function (callback) {
+  var _this = this;
+
+  checkToAddFields.bind(this)(function (isAdd) {
+    if(isAdd) {
+      return processFields.bind(_this)(callback);
+    }
+
+    callback(null, fields);
+  });
+};
+
 var processOptions = function (callback) {
   var _this = this;
 
@@ -56,6 +79,17 @@ var processOptions = function (callback) {
     }
 
     callback(null, results);
+  });
+};
+
+var checkToAddAssocs = function (callback) {
+  this.prompt([{
+      name: 'addnew',
+      type: 'confirm',
+      message: 'Add new association to Schema?',
+      default: true
+  }], function (result) {
+    callback(result.addnew);
   });
 };
 
@@ -79,6 +113,18 @@ var processAssocs = function (callback) {
   });
 };
 
+var wrapAssocs = function (callback) {
+  var _this = this;
+
+  checkToAddAssocs.bind(this)(function (isAdd) {
+    if(isAdd) {
+      return processAssocs.bind(_this)(callback);
+    }
+
+    callback(null, assocs);
+  });
+};
+
 var processResponse = function (results) {
   if (!results.correct) {
     return processResponse.bind(this)(results);
@@ -95,9 +141,11 @@ var processResponse = function (results) {
   );
 
   async.series({
-    fields: processFields.bind(this),
+    // fields: processFields.bind(this),
+    fields: wrapFields.bind(this),
     options: processOptions.bind(this),
-    assocs: processAssocs.bind(this)
+    // assocs: processAssocs.bind(this)
+    assocs: wrapAssocs.bind(this)
   }, function (err, resp) {
     if (err) {
       throw err;
@@ -131,20 +179,17 @@ exports.prompts = [
     name: 'schemaname',
     type: 'input',
     message: 'Type name of your Schema',
-    store   : true,
     default: 'schema-' + (new Date()).getTime()
   },
   {
     name: 'relpath',
     type: 'input',
-    message: 'Relative path, where Schema will be created&',
-    store   : true,
+    message: 'Relative path, where Schema will be created',
     default: ''
   }, {
     name: 'filename',
     type: 'input',
     message: 'Type filename of your Schema',
-    store   : true,
     default: 'schema-' + (new Date()).getTime()
   }, {
     name: 'correct',
