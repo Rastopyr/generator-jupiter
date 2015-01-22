@@ -35,14 +35,13 @@ function processResponse(results) {
 }
 
 module.exports = yeoman.generators.Base.extend({
-  fields: {},
   initializing: function () {
     this.pkg = require('../../package.json');
   },
   prompting: function () {
     var schemas, prompts;
 
-    var done = this.async();
+    this.async();
 
     this.log(yosay(
       'Welcome to the ' + chalk.green('JupiterSchema') + ' generator!'
@@ -59,8 +58,7 @@ module.exports = yeoman.generators.Base.extend({
 
     this.prompt(prompts, processResponse.bind(this));
   },
-  writing: function() {
-    // console.log('fireWriting');
+  writing: function () {
     this.fs.copyTpl(this.tplPath, this.destPath, this.tplOptions);
   }
 });

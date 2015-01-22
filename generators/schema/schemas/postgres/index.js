@@ -24,7 +24,6 @@ var processFieldResponse = function (field) {
 
 var processAssocResponse = function (assoc) {
   assocs.push(assoc);
-  console.log(assocs.length);
 };
 
 var processFields = function (callback) {
@@ -131,20 +130,17 @@ exports.prompts = [
     name: 'schemaname',
     type: 'input',
     message: 'Type name of your Schema',
-    store   : true,
     default: 'schema-' + (new Date()).getTime()
   },
   {
     name: 'relpath',
     type: 'input',
-    message: 'Relative path, where Schema will be created&',
-    store   : true,
+    message: 'Relative path, where Schema will be created',
     default: ''
   }, {
     name: 'filename',
     type: 'input',
     message: 'Type filename of your Schema',
-    store   : true,
     default: 'schema-' + (new Date()).getTime()
   }, {
     name: 'correct',
