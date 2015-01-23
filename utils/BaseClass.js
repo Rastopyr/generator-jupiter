@@ -58,16 +58,20 @@ module.exports = {
 function process(results) {
   var ns, fp, done;
 
+  // callback
   done = this.async();
 
+  // Save name of Subgenerator
   this.type = results.type.toLowerCase();
 
+  // Generate namespace
   fp = path.join(this.rootPath, this.plural, this.type);
   ns = this.env.namespace(fp);
+
+  // Register subgenerator
   this.env.register(fp, ns);
 
-  // this.adapter = require(path.join(__dirname, this.plural, this.type));
-
+  // Start subgenerator
   this.composeWith(ns, {
     options: results,
     arguments: []

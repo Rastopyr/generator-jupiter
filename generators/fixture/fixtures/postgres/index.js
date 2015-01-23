@@ -1,43 +1,47 @@
 'use strict';
 var path = require('path');
-var join = path.join;
+var fs = require('fs');
 
-var ctx;
+var yeoman = require('yeoman-generator');
+var _ = require('yeoman-generator/node_modules/lodash');
 
-exports.ctx = null;
-
-ctx = exports.ctx;
+var async = require('async');
 
 var prompts = {
   initial: require('./prompts/initial')
 };
 
-var process = function process(cb) {
-  var _this = this;
-  function clojureProcess(results) {
-    if(!results.correct) {
+module.exports = yeoman.generators.Base.extend({
+  prompts: function() {
+    var _this = this, done = this.async();
 
-    }
+    this.prompt(prompts.initial, function (results) {
+      if(!results.correct) {
+        return _this.prompts()
+      }
 
-    _this.format = results.format;
+      _this.tplOptions = results;
+      _this.format = results.format;
+      _this.relpath = results.relpath;
+      _this.filename = results.filename;
 
-    _this.destPath = _this.destinationPath(join(
+      done();
+    });
+  },
+  paths: function () {
+    this.destPath = this.destinationPath(path.join(
       'server/application/fixtures/',
-      results.relpath,
-      results.filename + '.' + _this.format
+      this.relpath,
+      this.filename + '.' + this.format
     ));
 
-    _this.tplOptions = results;
-    _this.tplPath = _this.templatePath('postgres/_postgres.' + _this.format);
-
-    cb();
+    this.tplPath = this.templatePath('../../../templates/postgres/_postgres.' + this.format);
+  },
+  write: function () {
+    this.fs.copyTpl(
+      this.tplPath,
+      this.destPath,
+      this.tplOptions
+    );
   }
-
-  return clojureProcess;
-};
-
-exports.prompts = prompts.initial;
-exports.process = process;
-
-
-module.exports = exports;
+});
