@@ -1,202 +1,152 @@
 'use strict';
-var util = require('util');
 var path = require('path');
-var join = path.join;
 
+var yeoman = require('yeoman-generator');
 var _ = require('yeoman-generator/node_modules/lodash');
 
-var async = require('async');
-
-var fields = [], assocs = [];
-
 var prompts = {
+  initial: require('./prompts/initial'),
   options: require('./prompts/options'),
   fields: require('./prompts/fields'),
   assocs: require('./prompts/assocs')
 };
 
-var processFieldResponse = function (field) {
-  fields.push(field);
-};
+module.exports = yeoman.generators.Base.extend({
+  initializing: function () {
+    this.fields = [];
+    this.assocs = [];
 
-var processAssocResponse = function (assoc) {
-  assocs.push(assoc);
-};
-
-/*
-  Checking the need to add a field
- */
-
-var checkToAddFields = function(callback) {
-  this.prompt([{
-      name: 'addnew',
-      type: 'confirm',
-      message: 'Add new field to Schema?',
-      default: true
-  }], function (result) {
-    callback(result.addnew);
-  });
-};
-
-var processFields = function (callback) {
-  var _this = this;
-
-  this.prompt(prompts.fields, function (results) {
-    if (!results.correct) {
-      if (results.again) {
-        return processFields.bind(_this)(callback);
-      }
-    }
-
-    processFieldResponse.bind(_this)(results);
-
-    if (results.again) {
-      return processFields.bind(_this)(callback);
-    }
-
-    callback(null, fields);
-  });
-};
-
-var wrapFields = function (callback) {
-  var _this = this;
-
-  checkToAddFields.bind(this)(function (isAdd) {
-    if(isAdd) {
-      return processFields.bind(_this)(callback);
-    }
-
-    callback(null, fields);
-  });
-};
-
-var processOptions = function (callback) {
-  var _this = this;
-
-  this.prompt(prompts.options, function (results) {
-    if (!results.correct) {
-      return processOptions.bind(_this)(callback);
-    }
-
-    callback(null, results);
-  });
-};
-
-var checkToAddAssocs = function (callback) {
-  this.prompt([{
-      name: 'addnew',
-      type: 'confirm',
-      message: 'Add new association to Schema?',
-      default: true
-  }], function (result) {
-    callback(result.addnew);
-  });
-};
-
-var processAssocs = function (callback) {
-  var _this = this;
-
-  this.prompt(prompts.assocs, function (results) {
-    if (!results.correct) {
-      if (results.again) {
-        return processAssocs.bind(_this)(callback);
-      }
-    }
-
-    processAssocResponse.bind(_this)(results);
-
-    if (results.again) {
-      return processAssocs.bind(_this)(callback);
-    }
-
-    callback(null, assocs);
-  });
-};
-
-var wrapAssocs = function (callback) {
-  var _this = this;
-
-  checkToAddAssocs.bind(this)(function (isAdd) {
-    if(isAdd) {
-      return processAssocs.bind(_this)(callback);
-    }
-
-    callback(null, assocs);
-  });
-};
-
-var processResponse = function (results) {
-  if (!results.correct) {
-    return processResponse.bind(this)(results);
-  }
-
-  var _this = this, done = this.async();
-
-  this.format = results.format;
-
-  this.destPath = join(
-    'server/application/model/',
-    results.relpath,
-    results.filename + '.' + _this.format
-  );
-
-  async.series({
-    // fields: processFields.bind(this),
-    fields: wrapFields.bind(this),
-    options: processOptions.bind(this),
-    // assocs: processAssocs.bind(this)
-    assocs: wrapAssocs.bind(this)
-  }, function (err, resp) {
-    if (err) {
-      throw err;
-    }
-
-    results = _.extend({
-      name: results.schemaname,
-      filename: results.filename
-    }, resp);
-
-    _this.tplOptions = results;
-    _this.tplPath = _this.templatePath('postgres/_postgres.' + _this.format);
-    _this.destPath = _this.destinationPath(_this.destPath);
-
-    done();
-  });
-};
-
-exports.processResponse = processResponse;
-
-exports.prompts = [
-  {
-    name: 'format',
-    type: 'list',
-    message: 'Select fromat of schema file',
-    choices: [
-      'coffee', 'js'
-    ]
+    this.addAnyField = true;
+    this.isAddAnyAssoc = true;
   },
-  {
-    name: 'schemaname',
-    type: 'input',
-    message: 'Type name of your Schema',
-    default: 'schema-' + (new Date()).getTime()
-  },
-  {
-    name: 'relpath',
-    type: 'input',
-    message: 'Relative path, where Schema will be created',
-    default: ''
-  }, {
-    name: 'filename',
-    type: 'input',
-    message: 'Type filename of your Schema',
-    default: 'schema-' + (new Date()).getTime()
-  }, {
-    name: 'correct',
-    type: 'confirm',
-    message: 'Name is correct? We can go to specify fields?',
-    default: true
-  }
-];
+  prompts: function () {
+    var _this = this, done = this.async();
 
-module.exports = exports;
+    this.prompt(prompts.initial, function (results) {
+      if(!results.correct) {
+        return _this.prompts();
+      }
+
+      _this.format = results.format;
+      _this.filename = results.filename;
+      _this.tplOptions = results;
+      _this.tplOptions.name = results.schemaname;
+      _this.relpath = results.relpath;
+
+      _this.destPath = _this.destinationPath(path.join(
+        'server/application/model/',
+        results.relpath,
+        results.filename + '.' + _this.format
+      ));
+
+      _this.tplPath = _this.templatePath(
+        '../../../templates/postgres/_postgres.' + _this.format
+      );
+
+      done();
+    });
+  },
+  isAddAnyField: function() {
+    var _this = this, done = this.async();
+
+    this.prompt([{
+        name: 'addnew',
+        type: 'confirm',
+        message: 'Add new field to Schema?',
+        default: true
+    }], function (result) {
+      if(!result.addnew) {
+        _this.addAnyField = false;
+      }
+
+      done();
+    });
+  },
+  addField: function () {
+    var _this = this, done;
+
+    if(!this.addAnyField) {
+      return;
+    }
+
+    done = this.async();
+
+    this.prompt(prompts.fields, function (results) {
+      if (!results.correct) {
+        if (results.again) {
+          return _this.addField();
+        }
+      }
+
+      _this.fields.push(results);
+
+      if (results.again) {
+        return _this.addField();
+      }
+
+      done();
+    });
+  },
+  options: function () {
+    var _this = this, done = this.async();
+
+    this.prompt(prompts.options, function (results) {
+      if (!results.correct) {
+        return _this.options();
+      }
+
+      _this.tplOptions.options = results;
+
+      done();
+    });
+  },
+  isAddAnyAssoc: function () {
+    var _this = this, done = this.async();
+
+    this.prompt([{
+        name: 'addnew',
+        type: 'confirm',
+        message: 'Add new association to Schema?',
+        default: true
+    }], function (result) {
+       if(!result.addnew) {
+          _this.isAddAnyAssoc = false;
+        }
+
+        done();
+    });
+  },
+  addAssoc: function () {
+    var _this = this, done;
+
+    if(!this.isAddAnyAssoc) {
+      return;
+    }
+
+    done = this.async();
+
+    this.prompt(prompts.assocs, function (results) {
+      if (!results.correct) {
+        if (results.again) {
+          return _this.addAssoc();
+        }
+      }
+
+      _this.assocs.push(results);
+
+      if (results.again) {
+        return _this.addAssoc();
+      }
+
+      done();
+    });
+  },
+  write: function() {
+    this.tplOptions = _.extend(this.tplOptions, {
+      fields: this.fields,
+      assocs: this.assocs
+    });
+
+    this.fs.copyTpl(this.tplPath, this.destPath, this.tplOptions);
+  }
+});
