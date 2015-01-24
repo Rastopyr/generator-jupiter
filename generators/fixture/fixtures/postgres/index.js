@@ -1,23 +1,19 @@
 'use strict';
 var path = require('path');
-var fs = require('fs');
 
 var yeoman = require('yeoman-generator');
-var _ = require('yeoman-generator/node_modules/lodash');
-
-var async = require('async');
 
 var prompts = {
   initial: require('./prompts/initial')
 };
 
 module.exports = yeoman.generators.Base.extend({
-  prompts: function() {
+  prompts: function () {
     var _this = this, done = this.async();
 
     this.prompt(prompts.initial, function (results) {
-      if(!results.correct) {
-        return _this.prompts()
+      if (!results.correct) {
+        return _this.prompts();
       }
 
       _this.tplOptions = results;

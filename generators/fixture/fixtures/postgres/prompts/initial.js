@@ -7,7 +7,7 @@ module.exports = [
     choices: [
       'coffee'
     ]
-  },{
+  }, {
     name: 'ftype',
     type: 'list',
     message: 'Select type of Fixture data',
