@@ -1,6 +1,6 @@
 {
   "name": "generator-jupiter",
-  "version": "0.1.8",
+  "version": "0.1.16",
   "description": "Yeoman generator",
   "license": "MIT",
   "main": "app/index.js",
@@ -23,7 +23,6 @@
     "yeoman-generator"
   ],
   "dependencies": {
-    "async": "^0.9.0",
     "chalk": "^0.5.0",
     "underscore": "^1.7.0",
     "underscore.inflection": "^1.2.0",

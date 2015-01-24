@@ -55,6 +55,9 @@ module.exports = {
   }
 };
 
+/*
+  Process prompts of types
+ */
 function process(results) {
   var ns, fp, done;
 
