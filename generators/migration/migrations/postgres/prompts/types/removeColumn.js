@@ -3,14 +3,16 @@
 module.exports = [
   {
     name: 'table',
-    message: 'Enter the name of the table that will remove column',
+    message: 'Table that will remove column',
     type: 'input',
+    default: 'table-' + (new Date()).getTime(),
     required: true
   },
   {
     name: 'column',
-    message: 'Enter the name of the column that will remove',
+    message: 'The column that will remove',
     type: 'input',
+    default: 'column-' + (new Date()).getTime(),
     required: true
   },
   {

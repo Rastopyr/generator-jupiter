@@ -4,7 +4,7 @@ var chalk = require('chalk');
 module.exports = [
   {
     name: 'table',
-    message: 'Enter the name of the table that will add index',
+    message: 'The table that will add index',
     type: 'input',
     default: 'table-' + (new Date()).getTime(),
     required: true

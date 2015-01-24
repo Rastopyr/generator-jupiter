@@ -6,8 +6,7 @@ var _ = require('yeoman-generator/node_modules/lodash');
 
 var prompts = {
   initial: require('./prompts/initial'),
-  actions: require('./prompts/actions'),
-  fields: require('./prompts/fields')
+  actions: require('./prompts/actions')
 };
 
 module.exports = yeoman.generators.Base.extend({

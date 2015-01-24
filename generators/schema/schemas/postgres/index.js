@@ -23,7 +23,7 @@ module.exports = yeoman.generators.Base.extend({
     var _this = this, done = this.async();
 
     this.prompt(prompts.initial, function (results) {
-      if(!results.correct) {
+      if (!results.correct) {
         return _this.prompts();
       }
 
@@ -46,16 +46,16 @@ module.exports = yeoman.generators.Base.extend({
       done();
     });
   },
-  isAddAnyField: function() {
+  isAddAnyField: function () {
     var _this = this, done = this.async();
 
     this.prompt([{
-        name: 'addnew',
-        type: 'confirm',
-        message: 'Add new field to Schema?',
-        default: true
+      name: 'addnew',
+      type: 'confirm',
+      message: 'Add new field to Schema?',
+      default: true
     }], function (result) {
-      if(!result.addnew) {
+      if (!result.addnew) {
         _this.addAnyField = false;
       }
 
@@ -65,7 +65,7 @@ module.exports = yeoman.generators.Base.extend({
   addField: function () {
     var _this = this, done;
 
-    if(!this.addAnyField) {
+    if (!this.addAnyField) {
       return;
     }
 
@@ -104,22 +104,22 @@ module.exports = yeoman.generators.Base.extend({
     var _this = this, done = this.async();
 
     this.prompt([{
-        name: 'addnew',
-        type: 'confirm',
-        message: 'Add new association to Schema?',
-        default: true
+      name: 'addnew',
+      type: 'confirm',
+      message: 'Add new association to Schema?',
+      default: true
     }], function (result) {
-       if(!result.addnew) {
-          _this.isAddAnyAssoc = false;
-        }
+      if (!result.addnew) {
+        _this.isAddAnyAssoc = false;
+      }
 
-        done();
+      done();
     });
   },
   addAssoc: function () {
     var _this = this, done;
 
-    if(!this.isAddAnyAssoc) {
+    if (!this.isAddAnyAssoc) {
       return;
     }
 
@@ -141,7 +141,7 @@ module.exports = yeoman.generators.Base.extend({
       done();
     });
   },
-  write: function() {
+  write: function () {
     this.tplOptions = _.extend(this.tplOptions, {
       fields: this.fields,
       assocs: this.assocs

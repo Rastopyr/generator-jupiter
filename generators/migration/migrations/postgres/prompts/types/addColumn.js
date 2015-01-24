@@ -3,13 +3,15 @@
 module.exports = [
   {
     name: 'table',
-    message: 'Enter the name of the table that will change column',
+    message: 'The table that will change column',
     type: 'input',
+    default: 'table-' + (new Date()).getTime(),
     required: true
   }, {
     name: 'column',
-    message: 'Enter the name of the column that will change',
+    message: 'The column that will change',
     type: 'input',
+    default: 'column-' + (new Date()).getTime(),
     required: true
   }, {
     name: 'dataType',

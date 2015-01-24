@@ -12,8 +12,7 @@ options =
 	timestamps: <%= options.timestamps %>
 	paranoid: <%= options.paranoid %>
 	underscored: <%= options.underscored %>
-	associations:
-	<% _.each(assocs, function(assoc) { %>
+	associations: <% _.each(assocs, function(assoc) { %>
 		'<%= assoc.type %>':
 			modelName: "<%= assoc.model %>"
 			<% if(assoc.as) { %>as: <%= assoc.as %><% } %>

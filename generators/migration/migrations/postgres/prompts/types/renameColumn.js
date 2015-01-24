@@ -10,11 +10,11 @@ module.exports = [
     name: 'attrNameBefore',
     type: 'input',
     message: 'The column that will before renamed',
-    default: 'table-' + (new Date()).getTime()
+    default: 'column-' + (new Date()).getTime()
   }, {
     name: 'attrNameAfter',
     type: 'input',
     message: 'The column that will after renamed',
-    default: 'table-' + (new Date()).getTime()
+    default: 'column-' + (new Date()).getTime()
   }
 ];

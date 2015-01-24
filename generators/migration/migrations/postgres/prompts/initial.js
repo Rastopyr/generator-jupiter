@@ -8,11 +8,6 @@ module.exports = [
       'coffee'
     ]
   }, {
-    name: 'name',
-    type: 'input',
-    message: 'Type name of your Migration',
-    default: 'migration-' + (new Date()).getTime()
-  }, {
     name: 'filename',
     type: 'input',
     message: 'Type filename of your Migration',
