@@ -22,7 +22,7 @@ module.exports = [
       'TEXT',
       'DATE',
       'STRING.BINARY',
-      'INTEGRE',
+      'INTEGER',
       'BIGINT',
       'FLOAT',
       'DECIMAL',
