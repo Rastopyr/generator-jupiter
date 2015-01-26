@@ -1,10 +1,10 @@
 
-up = (sequelize, DataTypes, done) ->
-  sequelize.dropTable "<%=table%>"
+up = (migration, DataTypes, done) ->
+  migration.dropTable "<%=table%>"
 
   done()
 
-down = (sequelize, DataTypes, done) ->
+down = (migration, DataTypes, done) ->
   done()
 
 exports = {
