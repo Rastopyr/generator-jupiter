@@ -1,12 +1,12 @@
 
-up = (sequelize, DataTypes, done) ->
-  sequelize.removeColumn "<%=table%>", "<%=column%>"
+up = (migration, DataTypes, done) ->
+  migration.removeColumn "<%=table%>", "<%=column%>"
 
   done()
 
-down = (sequelize, DataTypes, done) ->
+down = (migration, DataTypes, done) ->
   sequelize.addColumn "<%=table%>", "<%=column%>", DataTypes.<%=dataType%>
-
+migration
   done()
 
 exports = {

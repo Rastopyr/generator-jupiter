@@ -28,7 +28,7 @@ var fields = [
       'TEXT',
       'DATE',
       'STRING.BINARY',
-      'INTEGRE',
+      'INTEGER',
       'BIGINT',
       'FLOAT',
       'DECIMAL',
@@ -58,11 +58,12 @@ var options = [
     name: 'chooseengine',
     message: 'Select engine?',
     type: 'confirm',
-    default: false
+    default: true
   }, {
     name: 'enginename',
     message: 'Choose engine for table',
     type: 'list',
+    default: 'InnoDB',
     choices: [
       'MYISAM',
       'InnoDB',

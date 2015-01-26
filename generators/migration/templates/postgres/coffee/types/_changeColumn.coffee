@@ -1,10 +1,10 @@
 
-up = (sequelize, DataTypes, done) ->
-  sequelize.changeColumn "<%=table%>", "<%=column%>", DataTypes.<%=dataType%>
+up = (migration, DataTypes, done) ->
+  migration.changeColumn "<%=table%>", "<%=column%>", DataTypes.<%=dataType%>
 
   done()
 
-down = (sequelize, DataTypes, done) ->
+down = (migration, DataTypes, done) ->
   done()
 
 exports = {
