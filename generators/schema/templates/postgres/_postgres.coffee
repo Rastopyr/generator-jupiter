@@ -20,10 +20,10 @@ options =
 	<% if(assocs.length) { %>associations: <% _.each(assocs, function(assoc) { %>
 		'<%= assoc.type %>':
 			modelName: "<%= assoc.model %>"
-			<% if(assoc.as) { %>as: <%= assoc.as %><% } %>
-			<% if(assoc.foreignKey) { %>foreignKey: <%= assoc.foreignKey %><% } %>
-			<% if(assoc.otherKey) { %>otherKey: <%= assoc.otherKey %><% } %>
-			<% if(assoc.through) { %>through: <%= assoc.through %><% } %><% }); %><% } %>
+			<% if(assoc.as) { %>as: '<%= assoc.as %>'<% } %>
+			<% if(assoc.foreignKey) { %>foreignKey: '<%= assoc.foreignKey %>'<% } %>
+			<% if(assoc.otherKey) { %>otherKey: '<%= assoc.otherKey %>'<% } %>
+			<% if(assoc.through) { %>through: '<%= assoc.through %>'<% } %><% }); %><% } %>
 
 name = "<%= name %>"
 
