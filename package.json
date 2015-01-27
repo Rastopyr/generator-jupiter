@@ -1,6 +1,6 @@
 {
   "name": "generator-jupiter",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "description": "Yeoman generator",
   "license": "MIT",
   "main": "app/index.js",
@@ -14,7 +14,7 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --recursive"
   },
   "files": [
     "app"
