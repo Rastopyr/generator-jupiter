@@ -1,3 +1,4 @@
+/*globals it, describe, before */
 'use strict';
 
 var path = require('path');
@@ -44,7 +45,7 @@ describe('jupiter:fixture', function () {
 
         it('file content', function () {
           helpers.assertFileContent(expectedFilePath, new RegExp('name = \"' + fixture.name + '\"'));
-          helpers.assertFileContent(expectedFilePath, new RegExp('data \= \\[\\]'));
+          helpers.assertFileContent(expectedFilePath, new RegExp('data = \\[\\]'));
           helpers.assertFileContent(expectedFilePath, new RegExp('exports = {\n  name\n  data\n}'));
           helpers.assertFileContent(expectedFilePath, new RegExp('module.exports = exports'));
         });
@@ -86,7 +87,7 @@ describe('jupiter:fixture', function () {
 
         it('file content', function () {
           helpers.assertFileContent(expectedFilePath, new RegExp('name = \"' + fixture.name + '\"'));
-          helpers.assertFileContent(expectedFilePath, new RegExp('data \= null'));
+          helpers.assertFileContent(expectedFilePath, new RegExp('data = null'));
           helpers.assertFileContent(expectedFilePath, new RegExp('exports = {\n  name\n  data\n}'));
           helpers.assertFileContent(expectedFilePath, new RegExp('module.exports = exports'));
         });
