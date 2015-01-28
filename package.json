@@ -1,10 +1,10 @@
 {
   "name": "generator-jupiter",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Yeoman generator",
   "license": "MIT",
   "main": "app/index.js",
-  "repository": "Rastopyr/generator-jupiter-migration",
+  "repository": "Rastopyr/generator-jupiter",
   "author": {
     "name": "Roman",
     "email": "rastopyr@gmail.com",
