@@ -13,21 +13,7 @@ var async = require('async');
 describe('jupiter:migration', function () {
   describe('postgres', function () {
     describe('with coffee', function () {
-      var options, fields, tmpDir, actions, fixture;
-
-      fields = [
-        {
-          name: 'field-' + (new Date()).getTime(),
-          allownull: true,
-          type: 'INTEGER',
-          unique: true
-        }, {
-          name: 'field-' + (new Date()).getTime() + 1,
-          allownull: false,
-          type: 'BOOLEAN',
-          unique: false
-        }
-      ];
+      var options, tmpDir, fixture;
 
       options = {
         addColumn: {
@@ -68,11 +54,6 @@ describe('jupiter:migration', function () {
           table: 'table-' + (new Date()).getTime()
         }
       };
-
-      actions = [
-        'createTable',
-        'dropTable'
-      ];
 
       tmpDir = path.join(os.tmpdir(), './temp-test');
 
