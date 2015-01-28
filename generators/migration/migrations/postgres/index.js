@@ -11,8 +11,6 @@ var prompts = {
 
 module.exports = yeoman.generators.Base.extend({
   initializing: function () {
-    this.options.fields = [];
-
     this.addSomeField = true;
   },
   prompts: function () {
@@ -61,47 +59,4 @@ module.exports = yeoman.generators.Base.extend({
       arguments: []
     });
   }
-  // addAnyField: function () {
-  //   var _this = this, done = this.async();
-
-  //   this.prompt({
-  //     name: 'addnewfield',
-  //     type: 'confirm',
-  //     message: 'Add new field to Migration?',
-  //     default: true
-  //   }, function (result) {
-  //     if (!result.addnewfield) {
-  //       _this.addSomeField = false;
-  //     }
-
-  //     done();
-  //   });
-  // },
-  // addField: function () {
-  //   var _this = this, done;
-
-  //   if (!this.addSomeField) {
-  //     return;
-  //   }
-
-  //   done = this.async();
-
-  //   console.log(prompts.fields);
-  //   this.prompt(prompts.fields, function (results) {
-  //     if (!results.correct) {
-  //       if (results.again) {
-  //         return _this.addField();
-  //       }
-  //     }
-
-  //     _this.options.fields.push(results);
-
-  //     if (results.again) {
-  //       return _this.addField();
-  //     }
-
-  //     done();
-  //   });
-  // },
-  // specifyOptions: function () {  // }
 });

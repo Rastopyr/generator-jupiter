@@ -13,8 +13,10 @@ module.exports = yeoman.generators.Base.extend({
     this.options.actionup = 'createTable';
     this.options.actiondown = 'dropTable';
 
+    this.options.fields = this.env.store.get('fields') || [];
+
     this.addAnyField = true;
-    this.fields = [];
+    this.fields = this.options.fields;
 
     this.questions = {
       table: prompts.table,
@@ -83,8 +85,6 @@ module.exports = yeoman.generators.Base.extend({
   },
   writing: function () {
     var destPath, tplPath;
-
-    this.options.fields = this.fields;
 
     destPath = this.destinationPath(path.join(
       'server/application/migration',
