@@ -1,11 +1,17 @@
 
 up = (migration, DataTypes, done) ->
-  sequelize.renameColumn "<%=table%>", "<%=attrNameBefore%>", "<%=attrNameAfter%>"
-  donemigration
+  migration.renameColumn(
+    "<%=table%>",
+    "<%=attrNameBefore%>",
+    "<%=attrNameAfter%>"
+  ).done(done)
 
 down = (migration, DataTypes, done) ->
-  migration.renameColumn "<%=table%>", "<%=attrNameAfter%>", "<%=attrNameBefore%>"
-  done()
+  migration.renameColumn(
+    "<%=table%>",
+    "<%=attrNameAfter%>",
+    "<%=attrNameBefore%>"
+  ).done(done)
 
 exports = {
   up

@@ -19,7 +19,7 @@ var fields = [
     type: 'confirm',
     message: 'Allow null in field?'
   }, {
-    name: 'type',
+    name: 'dataType',
     type: 'list',
     message: 'Choose type of field',
     choices: [

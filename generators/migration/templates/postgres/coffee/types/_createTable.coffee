@@ -1,13 +1,15 @@
 
 up = (migration, DataTypes, done) ->
-  migration.createTable("<%=table%>",
+  migration.createTable(
+    "<%=table%>"
+  ,
     'id':
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER<% _.each(fields, function (field) { %>
     '<%= field.name %>':
-      type: DataTypes.<%= field.type %>
+      type: DataTypes.<%= field.dataType %>
       allowNull: <%= field.allownull %>
       unique: <%= field.unique %><% }); %>
     'active':
@@ -29,7 +31,9 @@ up = (migration, DataTypes, done) ->
   ).done(done)
 
 down = (migration, DataTypes, done) ->
-  migration.dropTable("<%=table%>").done(done)
+  migration.dropTable(
+    "<%=table%>"
+  ).done(done)
 
 exports = {
   up
