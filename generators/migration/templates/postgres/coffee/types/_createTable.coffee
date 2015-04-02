@@ -16,7 +16,7 @@ up = (migration, DataTypes, done) ->
       type: DataTypes.BOOLEAN
       allowNull: false
       unique: false
-      default: true
+      defaultValue: true
     'createdAt':
       allowNull: false,
       type: DataTypes.DATE
@@ -24,7 +24,6 @@ up = (migration, DataTypes, done) ->
       allowNull: false,
       type: DataTypes.DATE
     'deletedAt':
-      allowNull: false,
       type: DataTypes.DATE
   ,
     engine: "<%= enginename %>"
