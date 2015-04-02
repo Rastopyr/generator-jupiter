@@ -6,7 +6,7 @@ schema =
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
-    type: DataTypes.INTEGER<% _.each(fields, function(field) { %>
+    type: Sequelize.INTEGER<% _.each(fields, function(field) { %>
   '<%= field.name %>':
     type: Sequelize.<%= field.type %>
     allowNull: <%= field.allownull %>
