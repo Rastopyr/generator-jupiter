@@ -49,7 +49,7 @@ describe('jupiter:schema', function () {
         helpers.assertFileContent(expectedFilePath, new RegExp('allowNull: false,'));
         helpers.assertFileContent(expectedFilePath, new RegExp('autoIncrement: true,'));
         helpers.assertFileContent(expectedFilePath, new RegExp('primaryKey: true,'));
-        helpers.assertFileContent(expectedFilePath, new RegExp('type: DataTypes.INTEGER'));
+        helpers.assertFileContent(expectedFilePath, new RegExp('type: Sequelize.INTEGER'));
         helpers.assertFileContent(expectedFilePath, /options =\n/);
         helpers.assertFileContent(expectedFilePath, new RegExp('tableName: \"' + fixture.tableName + '\"'));
         helpers.assertFileContent(expectedFilePath, new RegExp('timestamps: ' + fixture.timestamps));
