@@ -72,7 +72,7 @@ describe('jupiter:migration', function () {
 
         prompts = _.extend(fixture, options[action]);
 
-        var runner = helpers.run(path.join(__dirname, '../../generators/migration'))
+        var runner = helpers.run(path.join(__dirname, '../../generators/migration.js'))
           .inDir(tmpDir)
           .withPrompt(prompts);
 

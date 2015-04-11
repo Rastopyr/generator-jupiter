@@ -31,7 +31,7 @@ describe('jupiter:fixture', function () {
         );
 
         before(function (done) {
-          helpers.run(path.join(__dirname, '../../generators/fixture/index'))
+          helpers.run(path.join(__dirname, '../../generators/fixture/index.js'))
             .inDir(tmpDir)
             .withPrompt(fixture)
             .on('end', done);
@@ -73,7 +73,7 @@ describe('jupiter:fixture', function () {
         );
 
         before(function (done) {
-          helpers.run(path.join(__dirname, '../../generators/fixture/index'))
+          helpers.run(path.join(__dirname, '../../generators/fixture/index.js'))
             .inDir(tmpDir)
             .withPrompt(fixture)
             .on('end', done);

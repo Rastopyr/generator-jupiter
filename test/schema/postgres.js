@@ -33,7 +33,7 @@ describe('jupiter:schema', function () {
       );
 
       before(function (done) {
-        helpers.run(path.join(__dirname, '../../generators/schema/index'))
+        helpers.run(path.join(__dirname, '../../generators/schema/index.js'))
           .inDir(tmpDir)
           .withPrompt(fixture)
           .on('end', done);
