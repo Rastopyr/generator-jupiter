@@ -48,7 +48,7 @@ module.exports = yeoman.generators.Base.extend({
   startTypeGenerator: function () {
     var pathToType, type = this.options.actionup, ns;
 
-    pathToType = path.join(__dirname, 'types', type);
+    pathToType = path.join(__dirname, 'types', type + '.js');
 
     ns = this.env.namespace(pathToType);
 
