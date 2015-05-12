@@ -1,0 +1,20 @@
+oporty1:
+  build: node:0.10.32
+  expose:
+    - "<%= appPort %>"
+  links:
+   - database:<%= databaseHost %>
+   - redis:<%= redisHost %>
+database:
+  image: postgres:9.3
+  ports:
+    - "5432:5432"
+  environment:
+    POSTGRES_PASSWORD: <%= databaseUserPassword %>
+    POSTGRES_USER: <%= databaseUserName %>
+    POSTGRES_DB: <%= databaseName %>
+    DEBUG: true
+redis:
+  image: redis
+  ports:
+    - "6379:6379"
