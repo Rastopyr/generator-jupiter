@@ -69,7 +69,7 @@ module.exports = generators.Base.extend({
       this.destinationPath(path.join(prefix, 'package.json'))
     );
 
-    // this.npmInstall();
+    this.npmInstall();
   },
 
   templateApplication: function () {
